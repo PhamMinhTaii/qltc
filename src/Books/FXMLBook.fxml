@@ -25,14 +25,17 @@
                      <opaqueInsets>
                         <Insets right="1.0" />
                      </opaqueInsets>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="time" />
+                     </toggleGroup>
                   </RadioButton>
-                  <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Trưa (11h - 1h)">
+                  <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Trưa (11h - 1h)" toggleGroup="$time">
                      <opaqueInsets>
                         <Insets top="10.0" />
                      </opaqueInsets>
                   </RadioButton>
-                  <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Chiều (1h - 15h)" />
-                  <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Tối (18-22h)" />
+                  <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Chiều (1h - 15h)" toggleGroup="$time" />
+                  <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Tối (18-22h)" toggleGroup="$time" />
                </children>
                <opaqueInsets>
                   <Insets />
