@@ -39,3 +39,8 @@
 .txtcolor{
     -fx-background-color: #dce2dc;    
 }
+
+.login-status{
+    -fx-text-fill: red;
+    -fx-font-size: 24;         
+}

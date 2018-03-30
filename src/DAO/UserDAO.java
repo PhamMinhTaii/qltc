@@ -16,27 +16,23 @@ public class UserDAO {
         trans = session.beginTransaction();
     }
     
-    
-    public User find(String iD){
-        try {                       
-          
-             return (User)session.get(User.class, iD);         
+    public User Login(String userName){
+        
+        try {            
+            String query = String.format("select * from user where user_name = '%s'", userName);          
+            // Hack con mẹ nó não mày cái return này... =]]. 2 tiếng google của t đó.
+            return (User)session.createSQLQuery(query).addEntity(User.class).list().stream().findFirst().get();
         } catch (Exception e) {
-            return null;
+           return  null;
         }finally{
+            
             session.close();
-        }              
-    }    
-    
-    
-    public  int Login(String userName, String passWord){
-       return 1; 
+        }
     }
-    
     
     public  boolean insertUser(){
         
-        User user = new User("US1","Tình", "pass", true, true);      
+        User user = new User("US5","Tìnhh", "passs", true, true);      
         
         try{            
             session.save(user);
