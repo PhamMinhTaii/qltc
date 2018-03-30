@@ -5,14 +5,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
@@ -26,47 +31,19 @@ public class FXMLLoginController implements Initializable {
     private TextField txtUser;
     @FXML
     private TextField txtPassWord;
+    @FXML
+    private Button btnOpenMain;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        btnOpenMain.setOnAction(new OpenMain());
     }
-
-    @FXML
-    private void loginAction(ActionEvent event) throws IOException {
-
-        userBUS = new UserBUS();
-
-        int result = userBUS.Login(this.txtUser.getText(), this.txtPassWord.getText());
-
-        if (result == 1) {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/main/FXMLMain.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-        } else {
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Thông Báo Đăng Nhập");
-            alert.setHeaderText(null);
-
-            switch (result) {
-                case -1:
-                    alert.setContentText("Tài Khoản Đang Bị Khoá");
-                    break;
-                case -2:
-                    alert.setContentText("Mật Khẩu Không Đúng");
-                    break;
-                default:
-                    alert.setContentText("Đăng Nhập Sai. Xin Kiểm Tra Lại");
-                    break;
-            }
-            alert.show();
-        }
-    }
-
+    
+    
+   
+    
+ 
     @FXML
     private void exitAction(ActionEvent event) {
 
@@ -82,5 +59,53 @@ public class FXMLLoginController implements Initializable {
             Platform.exit();
         }
     }
+    
+    
+     class OpenMain implements EventHandler<ActionEvent>{
 
+        @Override
+        public void handle(ActionEvent e) {
+            userBUS = new UserBUS();
+
+            int result = userBUS.Login(txtUser.getText(),txtPassWord.getText());
+
+            if (result == 1) {
+
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("/main/FXMLMain.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();
+                    
+                    ((((Node)(e.getSource())).getScene()).getWindow()).hide();
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Thông Báo Đăng Nhập");
+                alert.setHeaderText(null);
+
+                switch (result) {
+                    case -1:
+                        alert.setContentText("Tài Khoản Đang Bị Khoá");
+                        break;
+                    case -2:
+                        alert.setContentText("Mật Khẩu Không Đúng");
+                        break;
+                    default:
+                        alert.setContentText("Đăng Nhập Sai. Xin Kiểm Tra Lại");
+                        break;
+                }
+                alert.show();
+            }
+            
+        }
+        
+    }
 }
+
+ 
