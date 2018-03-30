@@ -36,5 +36,6 @@
             <Button mnemonicParsing="false" onAction="#exitAction" styleClass="Button" text="Exit" />
          </children>
       </HBox>
+      
    </children>
 </VBox>

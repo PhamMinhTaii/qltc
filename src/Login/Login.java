@@ -1,8 +1,6 @@
 
 package Login;
 
-import DAO.UserDAO;
-import entity.User;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
